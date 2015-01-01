@@ -1,3 +1,5 @@
+require_dependency 'workers/machine'
+
 # Job test case
 machine = Machine.new
 machine.queue.cleanup! # remove expired locks
