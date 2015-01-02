@@ -1,9 +1,11 @@
 class Job
     include MongoMapper::Document
 
+    key :user, String
     key :name, String
     key :status, String
     many :tasks
+    timestamps!
 
     def initialize(attributes={})
         super

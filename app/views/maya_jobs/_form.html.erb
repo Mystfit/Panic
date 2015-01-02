@@ -13,7 +13,11 @@
   <fieldset>
     <legend>Job Settings</legend>
     <div class="pure-control-group">
-      <%= f.label "Name" %>
+      <%= f.label "User" %>
+      <%= f.text_field :user %>
+    </div>
+    <div class="pure-control-group">
+      <%= f.label "Job Name" %>
       <%= f.text_field :name %>
     </div>
     <div class="pure-control-group">

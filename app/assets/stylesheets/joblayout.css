@@ -160,6 +160,12 @@ a {
 .email-item-unread {
     border-left: 6px solid #1b98f8;
 }
+.email-item-complete {
+    border-left: 6px solid #008822;
+}
+.email-item-failed {
+    border-left: 6px solid #dd0000;
+}
 
 /* Email Content Styles */
 .email-content-header, .email-content-body, .email-content-footer {
