@@ -20,10 +20,9 @@ taskB = MayaTask.create(
         :renderFolder => "/Users/mystfit/Desktop/renders",
         :scene => "testScene.ma"
     )
-job = Job.create(:tasks => [taskA, taskB])
+job = Job.create(:name => "ByronTestJob", :tasks => [taskA, taskB])
 
 machine.queue.insert({:taskId => taskA.id})
 machine.queue.insert({:taskId => taskB.id})
 
 machine.listen
-

@@ -1,17 +1,11 @@
+
 class MayaTask < Task
-
-    QUEUED = "queued"
-    PAUSED = "paused"
-    FAILED = "failed"
-    COMPLETE = "complete"
-
     key :width, Integer
     key :height, Integer
     key :frame, Integer
     key :projectFolder, String
     key :renderFolder, String
     key :scene, String
-    key :status, String
 
     def toCommand
         command = "Render"

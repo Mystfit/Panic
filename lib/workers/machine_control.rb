@@ -1,3 +1,3 @@
-require 'machine'
+require_dependency 'workers/machine'
 
-Daemons.run('machine.rb')
+Daemons.run('lib/workers/machine.rb')

@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Maya Jobs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Job</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @maya_jobs.each do |maya_job| %>
+      <tr>
+        <td><%= maya_job.name %></td>
+        <td><%= maya_job.status %></td>
+        <td><%= link_to 'Show', maya_job %></td>
+        <td><%= link_to 'Edit', edit_maya_job_path(maya_job) %></td>
+        <td><%= link_to 'Destroy', maya_job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Maya job', new_maya_job_path %>

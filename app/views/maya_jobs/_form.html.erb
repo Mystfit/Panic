@@ -1,0 +1,33 @@
+<%= form_for(@maya_job) do |f| %>
+  <% if @maya_job.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@maya_job.errors.count, "error") %> prohibited this maya_job from being saved:</h2>
+
+      <ul>
+      <% @maya_job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.label "Name" %>
+    <%= f.text_field :name %>
+    <%= f.label "Scene file" %>
+    <%= f.text_field :scene %>
+    <%= f.label "Project path" %>
+    <%= f.text_field :projectFolder %>
+    <%= f.label "Render Path" %>
+    <%= f.text_field :renderFolder %>
+    <%= f.label "Start frame" %>
+    <%= f.text_field :startFrame %>
+    <%= f.label "End frame" %>
+    <%= f.text_field :endFrame %>
+    <%= f.label "Width" %>
+    <%= f.text_field :width %>
+    <%= f.label "Height" %>
+    <%= f.text_field :height %>
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @maya_job.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Scene</th>
+      <th>Frame</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+	<% @maya_job_tasks.each do |task| %>
+	  <tr>
+	    <td><%= task.scene %></td>
+	    <td><%= task.frame %></td>
+	    <td><%= task.status %></td>
+	  </tr>
+	<% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Start', start_maya_job_path(@maya_job) %>
+<%= link_to 'Edit', edit_maya_job_path(@maya_job) %> |
+<%= link_to 'Back', maya_jobs_path %>
