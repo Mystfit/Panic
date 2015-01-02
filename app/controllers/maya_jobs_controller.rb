@@ -23,12 +23,9 @@ class MayaJobsController < ApplicationController
   end
 
   def start
-    MayaTask.all(:job_id => @maya_job.id).each {|t|
-      t.createTicket
-    }
-
+    MayaTask.all(:job_id => @maya_job.id).each {|t| t.createTicket}
     respond_to do |format|
-      format.html { redirect_to maya_jobs_url, notice: 'Maya job was started.' }
+      format.html { redirect_to maya_jobs_url, notice: 'Maya job started.' }
       format.json { head :no_content }
     end
   end

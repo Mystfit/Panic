@@ -7,15 +7,6 @@ class Machine
 
     def initialize
         @queue = TicketQueue.new
-        # db = Mongo::Connection.new('localhost')
-        # config = {
-        #     :timeout => 90,
-        #     :attempts => 2,
-        #     :database => "panic_development", # Set this from rails config
-        #     :collection => "task_tickets"
-        # }
-        # @queue = Mongo::Queue.new(db, config)
-        # @process_id = Digest::MD5.hexdigest("#{Socket.gethostname}-#{Process.pid}-#{Thread.current}")
     end
 
     def listen
