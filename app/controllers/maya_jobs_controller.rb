@@ -1,10 +1,9 @@
 class MayaJobsController < ApplicationController
-  before_action :set_maya_job, only: [:show, :edit, :update, :destroy, :start]
+  before_action :set_maya_job#, only: [:index, :show, :edit, :update, :destroy, :start]
 
   # GET /maya_jobs
   # GET /maya_jobs.json
   def index
-    @maya_jobs = MayaJob.all
   end
 
   # GET /maya_jobs/1
@@ -23,7 +22,7 @@ class MayaJobsController < ApplicationController
   end
 
   def start
-    MayaTask.all(:job_id => @maya_job.id).each {|t| t.createTicket}
+    @maya_job.start
     respond_to do |format|
       format.html { redirect_to maya_jobs_url, notice: 'Maya job started.' }
       format.json { head :no_content }
@@ -34,7 +33,7 @@ class MayaJobsController < ApplicationController
   # POST /maya_jobs.json
   def create
     @maya_job = MayaJob.new(maya_job_params)
-    create_maya_tasks
+    @maya_job.createTasks
 
     respond_to do |format|
       if @maya_job.save
@@ -75,26 +74,12 @@ class MayaJobsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_maya_job
+      @maya_jobs = MayaJob.all
       @maya_job = MayaJob.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def maya_job_params
       params[:maya_job]
-    end
-
-    def create_maya_tasks
-      for frame in @maya_job.startFrame..@maya_job.endFrame
-        MayaTask.create(
-          :job_id => @maya_job.id,
-          :width => @maya_job.width,
-          :height => @maya_job.height,
-          :frame => frame,
-          :projectFolder => @maya_job.projectFolder,
-          :renderFolder => @maya_job.renderFolder,
-          :scene => @maya_job.scene
-        )
-      end
-      @maya_job.save
-    end
+    end    
 end

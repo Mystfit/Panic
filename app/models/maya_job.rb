@@ -9,4 +9,19 @@ class MayaJob < Job
   key :renderFolder, String
   key :scene, String
 
+  def createTasks
+  	for frame in startFrame..endFrame
+        MayaTask.create(
+          :job_id => id,
+          :width => width,
+          :height => height,
+          :frame => frame,
+          :projectFolder => projectFolder,
+          :renderFolder => renderFolder,
+          :scene => scene
+        )
+      end
+    self.save
+  end
+
 end

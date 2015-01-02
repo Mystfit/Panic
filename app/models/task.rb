@@ -19,6 +19,7 @@ class Task
     def initialize(attributes={})
         super
         self.status = IDLE
+        self.save
     end
 
     def toCommand
@@ -29,5 +30,17 @@ class Task
         @@queue.insert({:taskId => id})
         self.status = QUEUED
         self.save
+    end
+
+    def complete
+        self.status = COMPLETE
+        self.save
+        job.taskCompleted
+    end
+
+    def fail
+        self.status = FAILED
+        self.save
+        job.taskCompleted
     end
 end

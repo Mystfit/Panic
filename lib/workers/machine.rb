@@ -25,14 +25,13 @@ class Machine
 
             status = MayaTaskRunner.new(task).execute
             if status == 0
-                task.status = Task::COMPLETE
+                task.complete
                 @queue.complete(doc)
             else
-                task.status = Task::ERROR
+                task.fail
                 @queue.error(doc, status)
             end
             puts "Finished task"
-            task.save
         end
     end
 end
