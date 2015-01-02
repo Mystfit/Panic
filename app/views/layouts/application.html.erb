@@ -7,8 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="layout" class="content pure-g">
+    <div id="nav" class="pure-u">
+      <a href="#" class="nav-menu-button">Menu</a>
+      <div class="nav-inner">
+        <div class="pure-menu pure-menu-open">
+          <ul>
+            <li><%= link_to 'New Maya job', new_maya_job_path %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="list" class="pure-u-1">
+      <%= render :partial => "maya_jobs/joblist" %>
+    </div>
+    <div id="main" class="pure-u-1">
+      <%= yield %>
+    </div>
+  </div>
 </body>
 </html>

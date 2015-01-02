@@ -10,7 +10,7 @@ gem "mongo_mapper"
 gem 'bson_ext'
 gem 'mongo_queue', :git => 'git://github.com/andresf/mongo_queue.git'
 gem 'daemons'
-
+gem "pure-css-rails"
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

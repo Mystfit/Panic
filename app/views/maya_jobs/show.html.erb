@@ -1,27 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @maya_job.name %></h1>
+<div class="email-content">
+  <div class="email-content-header pure-g">
+    <div class="pure-u-1-2">
+      <h1 class="email-content-title"><%= @maya_job.name %></h1>
+      <p class="email-content-subtitle">
+        Created by <a>Byron Mallett</a> at <span>3:56pm, April 3, 2012</span>
+      </p>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Scene</th>
-      <th>Frame</th>
-      <th>Status</th>
-    </tr>
-  </thead>
+    <div class="email-content-controls pure-u-1-2">
+      <button class="secondary-button pure-button"><%= link_to 'Start', start_maya_job_path(@maya_job) %></button>
+      <button class="secondary-button pure-button"><%= link_to 'Edit', edit_maya_job_path(@maya_job) %></button>
+      <button class="secondary-button pure-button"><%= link_to 'Back', maya_jobs_path %></button>
+    </div>
+  </div>
+  <div class="email-content-body">
+    <table>
+      <thead>
+        <tr>
+          <th>Scene</th>
+          <th>Frame</th>
+          <th>Status</th>
+        </tr>
+      </thead>
 
-  <tbody>
-	<% @maya_job_tasks.each do |task| %>
-	  <tr>
-	    <td><%= task.scene %></td>
-	    <td><%= task.frame %></td>
-	    <td><%= task.status %></td>
-	  </tr>
-	<% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Start', start_maya_job_path(@maya_job) %>
-<%= link_to 'Edit', edit_maya_job_path(@maya_job) %> |
-<%= link_to 'Back', maya_jobs_path %>
+      <tbody>
+        <% @maya_job_tasks.each do |task| %>
+          <tr>
+            <td><%= task.scene %></td>
+            <td><%= task.frame %></td>
+            <td><%= task.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
