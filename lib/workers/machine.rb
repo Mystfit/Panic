@@ -6,7 +6,11 @@ class Machine
     attr_reader :queue
 
     def initialize
-        @queue = TicketQueue.new
+        #process_id = Digest::MD5.hexdigest("#{Socket.gethostname}-#{Process.pid}-#{Thread.current}")
+        @worker = Worker.find_or_create_by_id(Socket.gethostname)
+        @worker.status = Status::IDLE
+        @worker.save
+        @queue = TicketQueue.new("#{Socket.gethostname}-#{Process.pid}-#{Thread.current}")
     end
 
     def listen
@@ -20,7 +24,7 @@ class Machine
         doc = @queue.lock_next
         if doc
             task = Task.find(doc["taskId"])
-            task.status = Task::RUNNING
+            task.status = Status::RUNNING
             task.save
 
             status = MayaTaskRunner.new(task).execute
@@ -32,6 +36,8 @@ class Machine
                 @queue.error(doc, status)
             end
             puts "Finished task"
+            @worker.status = Status::IDLE
+            @worker.save
         end
     end
 end

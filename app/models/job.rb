@@ -9,12 +9,12 @@ class Job
 
     def initialize(attributes={})
         super
-        self.status = Task::IDLE
+        self.status = Status::IDLE
     end
 
     def start
         MayaTask.all(:job_id => id).each {|t| t.createTicket}
-        self.status = Task::RUNNING
+        self.status = Status::RUNNING
         self.save
     end
 
@@ -23,8 +23,8 @@ class Job
     end
 
     def taskCompleted
-        queuedTasks = Task.all(:job_id => id, :status => Task::QUEUED)
-        self.status = Task::COMPLETE if queuedTasks.empty?
+        queuedTasks = Task.all(:job_id => id, :status => Status::QUEUED)
+        self.status = Status::COMPLETE if queuedTasks.empty?
         self.save
     end
 

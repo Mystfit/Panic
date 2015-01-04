@@ -23,5 +23,4 @@ class MayaJob < Job
       end
     self.save
   end
-
 end

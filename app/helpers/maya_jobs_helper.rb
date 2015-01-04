@@ -5,9 +5,9 @@ module MayaJobsHelper
 
   def jobStatusClass(job)
     jobClass = ""
-    jobClass = 'email-item-unread' if job.status == Task::RUNNING
-    jobClass = 'email-item-complete' if job.status == Task::COMPLETE
-    jobClass = 'email-item-failed' if job.status == Task::FAILED
+    jobClass = 'email-item-unread' if job.status == Status::RUNNING
+    jobClass = 'email-item-complete' if job.status == Status::COMPLETE
+    jobClass = 'email-item-failed' if job.status == Status::FAILED
     return jobClass
   end
 end

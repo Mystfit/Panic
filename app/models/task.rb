@@ -3,22 +3,14 @@ require_dependency 'workers/ticket_queue'
 class Task
     include MongoMapper::Document
 
-    @@queue = TicketQueue.new
-
-    # Status codes for tasks
-    IDLE = "idle"
-    QUEUED = "queued"
-    RUNNING = "running"
-    PAUSED = "paused"
-    FAILED = "failed"
-    COMPLETE = "complete"
+    @@queue = TicketQueue.new("distributor")
 
     key :status, String
     belongs_to :job
 
     def initialize(attributes={})
         super
-        self.status = IDLE
+        self.status = Status::IDLE
         self.save
     end
 
@@ -28,18 +20,18 @@ class Task
 
     def createTicket
         @@queue.insert({:taskId => id})
-        self.status = QUEUED
+        self.status = Status::QUEUED
         self.save
     end
 
     def complete
-        self.status = COMPLETE
+        self.status = Status::COMPLETE
         self.save
         job.taskCompleted
     end
 
     def fail
-        self.status = FAILED
+        self.status = Status::FAILED
         self.save
         job.taskCompleted
     end

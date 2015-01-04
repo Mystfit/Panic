@@ -4,9 +4,8 @@ require 'mongo_queue'
 
 class TicketQueue < Mongo::Queue
 
-    def initialize
-        @process_id = Digest::MD5.hexdigest("#{Socket.gethostname}-#{Process.pid}-#{Thread.current}")
-
+    def initialize(name)
+        @name = name
         db = Mongo::Connection.new('localhost')
         config = {
             :timeout => 90,
@@ -18,10 +17,10 @@ class TicketQueue < Mongo::Queue
     end
 
     def lock_next
-        super(@process_id)
+        super(@name)
     end
 
     def complete(doc)
-        super(doc, @process_id)
+        super(doc, @name)
     end
 end
