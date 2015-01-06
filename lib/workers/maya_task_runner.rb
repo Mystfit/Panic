@@ -1,8 +1,8 @@
-require 'workers/task_runner'
+require 'workers/machine'
 
-class MayaTaskRunner < TaskRunner
-    def buildCommand
-        command = "/Applications/Autodesk/maya2014/Maya.app/Contents/bin/" + @task.toCommand
+class MayaTaskRunner < Machine
+    def buildCommand(task)
+        command = "/Applications/Autodesk/maya2014/Maya.app/Contents/bin/" + task.toCommand
     end
 
     def parseProgress(line)

@@ -19,7 +19,6 @@ class Task
     end
 
     def createTicket
-        @@queue.insert({:taskId => id})
         self.status = Status::QUEUED
         self.save
     end

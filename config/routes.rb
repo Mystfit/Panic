@@ -1,9 +1,13 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :maya_jobs do
     member do
       get 'start'
     end
   end
+
+  mount Sidekiq::Web => '/sidekiq'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

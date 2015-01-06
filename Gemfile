@@ -6,6 +6,8 @@ require 'mongo'
 gem 'rails', '4.2.0'
 
 # Mongo
+gem 'sidekiq'
+gem 'sinatra', :require => nil
 gem "mongo_mapper"
 gem 'bson_ext'
 gem 'mongo_queue', :git => 'git://github.com/andresf/mongo_queue.git'

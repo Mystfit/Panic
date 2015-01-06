@@ -1,3 +1,4 @@
+require_dependency 'workers/maya_task_runner'
 
 class MayaTask < Task
     key :width, Integer
@@ -6,6 +7,11 @@ class MayaTask < Task
     key :projectFolder, String
     key :renderFolder, String
     key :scene, String
+
+    def createTicket
+        MayaTaskRunner.perform_async(id)
+        super
+    end
 
     def toCommand
         command = "Render"

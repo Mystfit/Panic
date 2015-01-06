@@ -1,3 +1,5 @@
+require_dependency 'workers/machine'
+
 class MayaJobsController < ApplicationController
   before_action :set_maya_job#, only: [:index, :show, :edit, :update, :destroy, :start]
 

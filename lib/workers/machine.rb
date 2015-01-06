@@ -1,45 +1,47 @@
-require 'rubygems'
-require_dependency 'workers/ticket_queue'
-require_dependency 'workers/maya_task_runner'
+require 'sidekiq'
 
 class Machine
-    attr_reader :queue
+    include Sidekiq::Worker
 
     def initialize
-        #process_id = Digest::MD5.hexdigest("#{Socket.gethostname}-#{Process.pid}-#{Thread.current}")
         @worker = Worker.find_or_create_by_id(Socket.gethostname)
         @worker.status = Status::IDLE
         @worker.save
-        @queue = TicketQueue.new("#{Socket.gethostname}-#{Process.pid}-#{Thread.current}")
     end
 
-    def listen
-        puts "Starting Panic worker"
-        loop do
-            sleep(5) if pollTasks.nil?
+    def perform(taskId)
+        task = Task.find(taskId)
+        task.status = Status::RUNNING
+        task.save
+
+        status = execute(task)
+        if status == 0
+            task.complete
+        else
+            task.fail
         end
+        puts "Finished task"
+        @worker.status = Status::IDLE
+        @worker.save
     end
 
-    def pollTasks
-        doc = @queue.lock_next
-        if doc
-            task = Task.find(doc["taskId"])
-            task.status = Status::RUNNING
-            task.save
+    def execute(task)
+        command = buildCommand(task)
+        puts "Running command " + command
+        IO.popen(command) { |line|
+            progress = parseProgress(line)
+            puts progress
+        }
+        # Return exit code
+        $?.to_i
+    end
 
-            status = MayaTaskRunner.new(task).execute
-            if status == 0
-                task.complete
-                @queue.complete(doc)
-            else
-                task.fail
-                @queue.error(doc, status)
-            end
-            puts "Finished task"
-            @worker.status = Status::IDLE
-            @worker.save
-        end
+    ### Implemented by different worker types
+    def parseProgress
+        raise NotImplementedError
+    end
+
+    def buildCommand
+        raise NotImplementedError
     end
 end
-
-Machine.new.listen
