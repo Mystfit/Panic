@@ -1,9 +1,5 @@
-require_dependency 'workers/ticket_queue'
-
 class Task
     include MongoMapper::Document
-
-    @@queue = TicketQueue.new("distributor")
 
     key :status, String
     belongs_to :job

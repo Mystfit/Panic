@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 require 'rubygems'
-require 'mongo'
+#require 'mongo'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -10,7 +10,7 @@ gem 'sidekiq'
 gem 'sinatra', :require => nil
 gem "mongo_mapper"
 gem 'bson_ext'
-gem 'mongo_queue', :git => 'git://github.com/andresf/mongo_queue.git'
+#gem 'mongo_queue', :git => 'git://github.com/andresf/mongo_queue.git'
 gem 'daemons'
 gem "pure-css-rails"
 
